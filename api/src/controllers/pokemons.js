@@ -8,6 +8,10 @@ module.exports = {
     getNamePokemon: async (name) => {
         const urlNamePokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
         return urlNamePokemon.data;
+    },
+    getIdPokemon: async (id) => {
+        const urlIdPokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        return urlIdPokemon.data;
     }
 }
 

@@ -2,9 +2,9 @@ const axios = require("axios");
 const { Router } = require("express");
 const router = Router();
 const { Pokemon, Type } = require("../db.js");
-const { getPokemons,getNamePokemon } = require("../controllers/pokemons.js");
+const { getPokemons,getNamePokemon, getIdPokemon } = require("../controllers/pokemons.js");
 const { validatorUUIDV4 } = require("../controllers/validator.js");
-const { Op } = require("sequelize");
+const { Op, NUMBER } = require("sequelize");
 
 router.get("/", async (req, res, next) => {
 
@@ -56,8 +56,19 @@ router.get("/name/:name", async (req, res, next) => {
     }
 });
 
-router.get("/:idPokemon", async (req, res, next) => {
-
+router.get("/:id", async (req, res, next) => {
+  try {
+    const {id} = req.params;
+    let idNumber = Number(id);
+    if(!isNaN(idNumber)){
+      const idPokemon = await getIdPokemon(idNumber);
+      res.json(idPokemon);
+    }else{
+      res.json("Not a Number!!!");
+    }
+  } catch (error) {
+    next("Id no valido")
+  }
 });
 
 router.post("/", async (req, res, next) => {
