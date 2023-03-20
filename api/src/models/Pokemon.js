@@ -10,35 +10,34 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey: true
     },
-    name: {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
     },
-    hp: {
+    vida: {
+      type: DataTypes.INTEGER,  
+    },
+    fuerza: {
       type: DataTypes.INTEGER,
 
     },
-    attack: {
+    defensa: {
       type: DataTypes.INTEGER,
 
     },
-    defense: {
+    valocidad: {
       type: DataTypes.INTEGER,
 
     },
-    speed: {
+    altura: {
       type: DataTypes.INTEGER,
 
     },
-    height: {
-      type: DataTypes.INTEGER,
-
-    },
-    weight: {
+    peso: {
       type: DataTypes.INTEGER,
     },
-    img: {
+    imagen: {
       type: DataTypes.STRING
     }
 

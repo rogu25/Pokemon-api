@@ -6,8 +6,14 @@ module.exports = {
         return pokemonsUrl.data.results;
     },
     getNamePokemon: async (name) => {
-        const urlNamePokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
-        return urlNamePokemon.data;
+        let findPokemon = [];
+        try {
+            const urlNamePokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+            findPokemon.push(urlNamePokemon.data);
+            return findPokemon;
+        } catch (error) {
+            return findPokemon;
+        }
     },
     getIdPokemon: async (id) => {
         const urlIdPokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
