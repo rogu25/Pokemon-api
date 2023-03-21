@@ -4,7 +4,7 @@ const router = Router();
 const { Pokemon, Type } = require("../db.js");
 const { getPokemons, getNamePokemon, getIdPokemon } = require("../controllers/pokemons.js");
 const { validatorUUIDV4 } = require("../controllers/validator.js");
-const { Op, NUMBER } = require("sequelize");
+const { Op, NUMBER, and } = require("sequelize");
 
 router.get("/", async (req, res, next) => {
 
@@ -26,7 +26,7 @@ router.get("/", async (req, res, next) => {
     });
 
     const getPokemonDB = await Pokemon.findAll({
-      attributes: ["id", "name", "img"],
+      attributes: ["id", "nombre", "imagen"],
       include: {
         model: Type,
         through: {
@@ -45,27 +45,17 @@ router.get("/", async (req, res, next) => {
 
 });
 
-router.get("/name/:name", async (req, res, next) => {
+router.get("/name", async (req, res, next) => {
   try {
-    const { name } = req.params;
-    const verifyName = Number(name);
-    if (! isNaN(verifyName)) {
-      return res.json("Ingrese un nombre valido")
-    } else {
-      const getNamePokemonApi = await getNamePokemon(name);
-      const namePokemonApi = getNamePokemonApi.map((r) => {
-        return {
-          id: r.id,
-          name: r.name,
-          img: r.sprites.other.home.front_default,
-          types: r.types.map((t) => { return { name: t.type.name } })
-        };
-      });
+    const { nombre } = req.query;
+    let numero = Number(nombre);
+    if (!isNaN(numero)) return res.json({ mensaje: "nombre no valido" })
+    if (nombre) {
       const namePokemonDb = await Pokemon.findOne({
         where: {
-          name: name
+          nombre: nombre
         },
-        attributes: ["id", "name", "img"],
+        attributes: ["id", "nombre", "imagen"],
         include: {
           model: Type,
           through: {
@@ -74,35 +64,53 @@ router.get("/name/:name", async (req, res, next) => {
           attributes: ["name"]
         }
       });
-      return namePokemonApi.length ? res.json(namePokemonApi) : res.json(namePokemonDb)
+      const namePokemonApi = await getNamePokemon(nombre);
+
+      if (namePokemonDb) return res.json(namePokemonDb)
+      if (namePokemonApi) return res.json(namePokemonApi)
     }
   } catch (error) {
-    next(error);
+    res.json({ mensaje: `No se encontro al pokemon ${error}` })
   }
 });
 
 router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-    let idNumber = Number(id);
-    if (!isNaN(idNumber)) {
-      const idPokemon = await getIdPokemon(idNumber);
-      res.json(idPokemon);
+
+    if (validatorUUIDV4(id)) {
+      const findIdDb = await Pokemon.findOne({
+        where: { id: id },
+        include: {
+          model: Type,
+          through: {
+            attributes: []
+          },
+          attributes: ["name"]
+        }
+      });
+      res.json(findIdDb);
     } else {
-      res.json("Not a Number!!!");
+      const findIdApi = await getIdPokemon(id);
+      res.json(findIdApi)
     }
+
   } catch (error) {
-    next("Id no valido")
+    res.json({ mensaje: `Posible error: ${error}` })
   }
 });
 
 router.post("/", async (req, res, next) => {
-    const {nombre, vida, fuerza, defensa, velocidad, altura, peso, imagen, tipos} = req.body;
+  try {
+    const { nombre, vida, fuerza, defensa, velocidad, altura, peso, imagen, tipos } = req.body;
     const addPokemon = await Pokemon.create({
       nombre, vida, fuerza, defensa, velocidad, altura, peso, imagen
     });
     await addPokemon.addTypes(tipos);
-    res.json("correcto: ")
+    res.json({ mensaje: "Pokemon creado correctamente...!!!" })
+  } catch (error) {
+    res.json({ mensaje: `error al crear el pokemon ${error}` })
+  }
 });
 
 module.exports = router;

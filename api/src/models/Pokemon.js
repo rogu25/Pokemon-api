@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
 
     },
-    valocidad: {
+    velocidad: {
       type: DataTypes.INTEGER,
 
     },

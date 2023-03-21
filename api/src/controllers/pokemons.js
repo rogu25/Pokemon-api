@@ -6,18 +6,34 @@ module.exports = {
         return pokemonsUrl.data.results;
     },
     getNamePokemon: async (name) => {
-        let findPokemon = [];
         try {
             const urlNamePokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
-            findPokemon.push(urlNamePokemon.data);
-            return findPokemon;
+            const detalleName = {
+                id: urlNamePokemon.data.id,
+                nombre: urlNamePokemon.data.name,
+                imagen: urlNamePokemon.data.sprites.other.home.front_default,
+                tipos: urlNamePokemon.data.types.map((t) => { return { name: t.type.name } })
+              };
+            return detalleName;
         } catch (error) {
-            return findPokemon;
+            return {mensaje: `Pokemon no encontrado ${error.message}`};
         }
     },
     getIdPokemon: async (id) => {
         const urlIdPokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-        return urlIdPokemon.data;
+        const detallePokeApi = {
+            id: urlIdPokemon.data.id,
+            nombre: urlIdPokemon.data.name,
+            vida: urlIdPokemon.data.base_experience,
+            fuerza: urlIdPokemon.data.stats[0].base_stat,
+            defensa: urlIdPokemon.data.stats[2].base_stat,
+            velocidad: urlIdPokemon.data.stats[5].base_stat,
+            altura: urlIdPokemon.data.height, 
+            peso: urlIdPokemon.data.weight,
+            imagen: urlIdPokemon.data.sprites.other.home.front_default,
+            tipos: urlIdPokemon.data.types.map((t) => {return  {name: t.type.name}})
+        }
+        return detallePokeApi;
     }
 }
 
