@@ -113,4 +113,27 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.put("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    if(!validatorUUIDV4(id)) return res.json({ mensaje: `No es un id Valido` })
+    const { nombre, vida, fuerza, defensa, velocidad, altura, peso, imagen, tipos } = req.body;
+    const updatePokemon = await Pokemon.update({
+      nombre, vida, fuerza, defensa, velocidad, altura, peso, imagen
+    }, {
+      where : {id}
+    }
+    );
+    const findPokemon = await Pokemon.findOne({
+      where: {id}
+    })
+    await findPokemon.setTypes(tipos);
+    // console.log("que contiene: ", findPokemon)
+    return res.json({ mensaje: "Pokemon Actualizado correctamente...!!!" })
+
+  } catch (error) {
+    res.json({ mensaje: `error al Actualizar el pokemon ${error}` })
+  }
+});
+
 module.exports = router;
