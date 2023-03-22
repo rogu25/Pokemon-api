@@ -128,7 +128,6 @@ router.put("/:id", async (req, res, next) => {
       where: {id}
     })
     await findPokemon.setTypes(tipos);
-    // console.log("que contiene: ", findPokemon)
     return res.json({ mensaje: "Pokemon Actualizado correctamente...!!!" })
 
   } catch (error) {
