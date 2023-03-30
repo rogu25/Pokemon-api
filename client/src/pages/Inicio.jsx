@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
-import s from "../css/inicio.module.css";
+import s from "../css/Inicio.module.css";
 
 function Inicio() {
 

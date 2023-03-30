@@ -1,0 +1,14 @@
+.contenedor{
+    display: flex;
+    flex-direction: row;
+}
+.card{
+    text-align: center;
+    border: 2px solid salmon;
+    width: 250px;
+    height: 300px;
+}
+.img{
+    width: 200px;
+    height: 250px;
+}

@@ -1,8 +1,11 @@
 import React from 'react';
+import Pokemon from "../components/Pokemon";
 
 function Home() {
   return (
-    <div>home</div>
+    <div>
+      <Pokemon/>
+    </div>
   );
 }
 

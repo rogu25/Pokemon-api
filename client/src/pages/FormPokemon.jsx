@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Form() {
+function FormPokemon() {
   return (
     <div>form</div>
   );
 }
 
-export default Form;
+export default FormPokemon;
