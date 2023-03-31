@@ -19,12 +19,11 @@ router.get("/", async (req, res, next) => {
     const getPokemonAPI = allPokemons.map((r) => {
       return {
         id: r.data.id,
-        name: r.data.name,
-        img: r.data.sprites.other.home.front_default,
+        nombre: r.data.name,
+        imagen: r.data.sprites.other.home.front_default,
         types: r.data.types.map((t) => { return { name: t.type.name } })
       };
     });
-
     const getPokemonDB = await Pokemon.findAll({
       attributes: ["id", "nombre", "imagen"],
       include: {

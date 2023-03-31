@@ -1,14 +1,27 @@
 .contenedor{
+    border: 2px solid #2323;
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 .card{
+    background-color: rgba(255, 255, 255, 0.648);
     text-align: center;
-    border: 2px solid salmon;
-    width: 250px;
-    height: 300px;
+    border: 1px solid rgb(109, 3, 3);
+    width: 240px;
+    height: 290px;
+    margin: 20px;
+    box-shadow: 0px 0px 5px 9px #fffd;
+    border-radius: 10px;
 }
 .img{
-    width: 200px;
-    height: 250px;
+    width: 150px;
+    height: 200px;
+}
+.tNombre{
+    padding-top: 20px;
+    text-decoration: none;
+}
+.tTipos{
+    padding-top: 5px;
 }
