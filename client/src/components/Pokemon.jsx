@@ -29,8 +29,12 @@ function Pokemon() {
     );
   } else {
     return (
-      <div className={s.contenedor}>
-        {pokemons.mensaje}
+      <div className={s.contenedorError}>
+
+        <p>
+          {`No se econtraron pokemones, posible Error...  ${pokemons.mensaje}`}
+        </p>
+
       </div>
     );
   }
