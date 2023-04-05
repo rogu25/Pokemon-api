@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { get_all_pokemons } from "../redux/action";
+import React from 'react';
+
 import CardPokemon from "./CardPokemon";
 
 import s from "../css/CardPokemon.module.css";
 
-function Pokemon() {
-  const dispatch = useDispatch();
-  const pokemons = useSelector((state) => state.pokemons)
-
-  useEffect(() => {
-    dispatch(get_all_pokemons())
-  }, [])
+function Pokemon({pokemons}) {
 
   if (pokemons.length) {
     return (

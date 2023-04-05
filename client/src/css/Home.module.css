@@ -1,0 +1,11 @@
+.contenedor{
+    height: 50px;
+    color: rgb(22, 23, 23);
+    background-color: rgba(240, 248, 255, 0.733);
+    text-align: center;
+}
+.contenedorFiltros{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: aqua;
+}
