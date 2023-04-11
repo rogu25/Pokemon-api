@@ -12,20 +12,21 @@ function Filtros({tipos}) {
     }
 
     return (
-        <div className={s.contenedor}>
-            <h4>Filtrados</h4>
-            <div className={s.contenedorFiltros}>
-                <button>Aa-Zz</button>
-                <select onChange={filtrarTipos}>
+        <div className={s.content_filtros}>
+            <h4 className={s.titulo_filtros}>Filtrados</h4>
+            <div className={""}>
+                <button className={s.btn_filtros}>Aa-Zz</button>
+                <select className={s.btn_filtros} onChange={filtrarTipos}>
                     <option value="">Tipos</option>
+                    <option value="all">All</option>
                     {   
                         tipos.length && tipos.map((t) => {
                             return <option key={t.id} value={t.name}>{t.name}</option>
                         })
                     } 
                 </select>
-                <button>Externa/base de datos/all</button>
-                <button>Fuerza</button>
+                <button className={s.btn_filtros}>Existencia</button>
+                <button className={s.btn_filtros}>Fuerza +</button>
             </div>
         </div>
     )

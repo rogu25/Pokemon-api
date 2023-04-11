@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const ALL_POKEMONS = "ALL_POKEMONS";
 export const ALL_TYPES = "ALL_TYPES";
-export const FILTER_x_TYPES = "FILTER_x_TYPES";
+export const FILTER_X_TYPES = "FILTER_X_TYPES";
 
 
 export const get_all_pokemons = () => async (dispatch) => {
@@ -38,12 +38,12 @@ export const get_all_types = () => async (dispatch) => {
 export const filtroPorTipo = (tipo) => async (dispatch) => {
     try {
         return dispatch({
-            type: FILTER_x_TYPES,
+            type: FILTER_X_TYPES,
             payload: tipo
         });
     } catch (error) {
         return dispatch({
-            type: FILTER_x_TYPES,
+            type: FILTER_X_TYPES,
             payload: {mensaje: error.message}
         });
     }

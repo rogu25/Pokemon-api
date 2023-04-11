@@ -1,4 +1,4 @@
-import { ALL_POKEMONS, ALL_TYPES, FILTER_x_TYPES } from "../action";
+import { ALL_POKEMONS, ALL_TYPES, FILTER_X_TYPES } from "../action";
 
 const initialState = {
     pokemons: [],
@@ -18,14 +18,14 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 tipos: action.payload
             }
-        case FILTER_x_TYPES:
+        case FILTER_X_TYPES:
             const filtroTipos = state.pokemons.filter((f) => {
                 const tipos = f.types.find((t) => t.name === action.payload);
-                return tipos && tipos 
+                return tipos; 
             })
             return {
                 ...state,
-                filtroTipo: filtroTipos
+                filtroTipo: action.payload ==="all"? []:filtroTipos
             }
         default:
             return state;
