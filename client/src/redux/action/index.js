@@ -3,7 +3,7 @@ import axios from "axios";
 export const ALL_POKEMONS = "ALL_POKEMONS";
 export const ALL_TYPES = "ALL_TYPES";
 export const FILTER_X_TYPES = "FILTER_X_TYPES";
-
+export const FILTER_X_ORDEN = "FILTER_X_ORDEN";
 
 export const get_all_pokemons = () => async (dispatch) => {
     try {
@@ -44,6 +44,20 @@ export const filtroPorTipo = (tipo) => async (dispatch) => {
     } catch (error) {
         return dispatch({
             type: FILTER_X_TYPES,
+            payload: {mensaje: error.message}
+        });
+    }
+}
+
+export const filtrarXorden = (orden) => async (dispatch) => {
+    try {
+        return dispatch({
+            type: FILTER_X_ORDEN,
+            payload: orden
+        });
+    } catch (error) {
+        return dispatch({
+            type: FILTER_X_ORDEN,
             payload: {mensaje: error.message}
         });
     }
