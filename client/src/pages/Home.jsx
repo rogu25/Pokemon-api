@@ -62,24 +62,43 @@ function Home() {
       <NavBar/>
       <div className={s.content_home}>
         <div className={s.content_filtros}>
-          <h4 className={s.titulo_filtros}>Filtrados</h4>
           <div className={s.contenedor_filtros}>
+          <div className={s.f_origen + " " + s.filtros}>
+              <label>Origen</label>
+              <select className={s.btn_filtros} id='existencia' onChange={(evt) => {
+                setFiltros({ key: evt.target.id, valor: evt.target.value });
+              }}>
+                <option value={"all"}>All</option>
+                <option value="db">Db</option>
+                <option value="api">Api</option>
+              </select>
+            </div>
             <div className={s.f_orden + " " + s.filtros}>
-              <h5>Ordenamiento</h5>
+              <label>Orden</label>
               <select className={s.btn_filtros} id='order' onChange={(evt) => {
                 setFiltros({ key: evt.target.id, valor: evt.target.value });
               }}>
-                <option >Orden</option>
+                <option >All</option>
                 <option value="asc">Aa-Zz</option>
                 <option value="desc">Zz-Aa</option>
               </select>
             </div>
-            <div>
-              <h5>Tipos de Pokemons</h5>
+            <div className={s.f_fuerza + " " + s.filtros}>
+              <label>Fuerza</label>
+              <select className={s.btn_filtros} id='order' onChange={(evt) => {
+                setFiltros({ key: evt.target.id, valor: evt.target.value });
+              }}>
+                <option >All</option>
+                <option value="asc">Más a menos</option>
+                <option value="desc">Menos a más</option>
+              </select>
+            </div>
+            <div className={s.f_tipos + " " + s.filtros}>
+              <label>Tipos</label>
               <select className={s.btn_filtros} id='type' onChange={(evt) => {
                 setFiltros({ key: evt.target.id, valor: evt.target.value });
               }}>
-                <option value="all">All Tipos</option>
+                <option value="all">All</option>
                 {
                   tipos.length && tipos.map((t) => {
                     return <option key={t.id} value={t.name}>{t.name}</option>
@@ -87,20 +106,7 @@ function Home() {
                 }
               </select>
             </div>
-            <div>
-              <h5>Pokemons Existentes</h5>
-              <select className={s.btn_filtros} id='existencia' onChange={(evt) => {
-                setFiltros({ key: evt.target.id, valor: evt.target.value });
-              }}>
-                <option value={"all"}>Existencia</option>
-                <option value="db">Db</option>
-                <option value="api">Api</option>
-              </select>
-            </div>
-            <div>
-              <h5>Fuerza</h5>
-              <button className={s.btn_filtros}>Fuerza +</button>
-            </div>
+            
           </div>
         </div>
         <div className={s.contenedorBtnPage}>
