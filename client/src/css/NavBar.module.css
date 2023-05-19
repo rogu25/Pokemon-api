@@ -1,0 +1,53 @@
+.contenedor_navbar{
+    background-color: #242424;
+    height: 80px;
+    display: flex;
+}
+.nav_logo{
+    width: 20%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_logo{
+    width: 200px;
+    height: 200px;
+}
+
+.nav_busqueda{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn_buscar{
+    height: 35px;
+    margin: 10px;
+    padding: .4rem 1rem;
+    border: 1px solid #16AD80;
+    border-radius: 10px;
+    background-color: #074331;
+    color: #fff;
+    font-size: 1rem;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .5);
+    box-shadow: 0 2px 0 rgba(255, 255, 255, .5) inset,
+        0 2px 3px rgba(0, 0, 0, .2);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #f90), to(#e76a00));
+    background-image: linear-gradient(#16AD80 10%, #128864 100%);
+}
+.input_buscar{
+    width: 300px;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 0 rgba(255, 255, 255, .5) inset,
+        0 2px 3px rgba(0, 0, 0, .2);
+}
+.input_buscar:focus{
+    box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075)inset, 0 0 8px rgba(255,144,0,0.6);
+    outline: 0 none;
+}

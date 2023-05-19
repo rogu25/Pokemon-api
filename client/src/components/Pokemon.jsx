@@ -3,8 +3,9 @@ import React from 'react';
 import CardPokemon from "./CardPokemon";
 
 import s from "../css/CardPokemon.module.css";
+import Loading from './Loading';
 
-function Pokemon({pokemons, pageActual, nextPage}) {
+function Pokemon({pokemons, pageActual, nextPage, mensaje}) {
 
   if (pokemons.length) {
     return (
@@ -22,13 +23,7 @@ function Pokemon({pokemons, pageActual, nextPage}) {
     );
   } else {
     return (
-      <div className={s.contenedorError}>
-
-        <p>
-          {`No se econtraron pokemones, posible Error...  ${pokemons.mensaje}`}
-        </p>
-
-      </div>
+      <Loading mensaje={mensaje}/>
     );
   }
 

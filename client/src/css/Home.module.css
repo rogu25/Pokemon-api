@@ -20,6 +20,10 @@
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #f90), to(#e76a00));
     background-image: linear-gradient(#16AD80 10%, #128864 100%);
 }
+.contenedor_filtros{
+    display: flex;
+    justify-content: center;
+}
 
 /* estilos para la home */
 .contenedorBtnPage {

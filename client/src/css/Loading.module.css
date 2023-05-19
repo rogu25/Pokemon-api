@@ -1,0 +1,25 @@
+.contenedor_load{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 450px;
+}
+.card_error{
+    position: relative;
+}
+.pokebola{
+    width: 350px;
+    min-height: 450px;
+}
+.title_error{
+    color:#f0f8ff;
+    position: absolute;
+    right: 25%;
+    top: 37%;
+}
+.error{
+    position: absolute;
+    color:#050505;
+    left: calc(41% / 450px);
+    top: 62%; 
+}
