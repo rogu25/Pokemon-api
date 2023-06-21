@@ -20,12 +20,13 @@ router.get("/", async (req, res, next) => {
       return {
         id: r.data.id,
         nombre: r.data.name,
+        fuerza: r.data.stats[0].base_stat,
         imagen: r.data.sprites.other.home.front_default,
         types: r.data.types.map((t) => { return { name: t.type.name } })
       };
     });
     const getPokemonDB = await Pokemon.findAll({
-      attributes: ["id", "nombre", "imagen"],
+      attributes: ["id", "nombre", "fuerza", "imagen"],
       include: {
         model: Type,
         through: {

@@ -19,7 +19,8 @@
 }
 .error{
     position: absolute;
+    background-color: #f0ffff;
     color:#050505;
     left: calc(41% / 450px);
-    top: 62%; 
+    top: 58%; 
 }

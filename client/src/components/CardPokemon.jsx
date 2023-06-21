@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import s from "../css/CardPokemon.module.css";
 
-function CardPokemon({ id, nombre, imagen, types }) {
+function CardPokemon({ id, nombre, fuerza, imagen, types }) {
 
   return (
     <React.Fragment>
@@ -19,6 +19,7 @@ function CardPokemon({ id, nombre, imagen, types }) {
             })
           }
         </h5>
+        <span><h6>{`Power: ${fuerza}`}</h6></span>
       </div>
     </React.Fragment>
   )

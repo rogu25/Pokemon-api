@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NavLink } from "react-router-dom";
 import s from "../css/Inicio.module.css";
 import { useDispatch } from 'react-redux';
-import { get_all_pokemons, get_all_types } from '../redux/action';
+import { get_all_pokemons, get_all_types} from '../redux/action';
 
 function Inicio() {
 
