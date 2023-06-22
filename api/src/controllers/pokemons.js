@@ -11,8 +11,9 @@ module.exports = {
             const detalleName = {
                 id: urlNamePokemon.data.id,
                 nombre: urlNamePokemon.data.name,
+                fuerza: urlNamePokemon.data.stats[0].base_stat,
                 imagen: urlNamePokemon.data.sprites.other.home.front_default,
-                tipos: urlNamePokemon.data.types.map((t) => { return { name: t.type.name } })
+                types: urlNamePokemon.data.types.map((t) => { return { name: t.type.name } })
               };
             return detalleName;
         } catch (error) {
@@ -31,7 +32,7 @@ module.exports = {
             altura: urlIdPokemon.data.height, 
             peso: urlIdPokemon.data.weight,
             imagen: urlIdPokemon.data.sprites.other.home.front_default,
-            tipos: urlIdPokemon.data.types.map((t) => {return  {name: t.type.name}})
+            types: urlIdPokemon.data.types.map((t) => {return  {name: t.type.name}})
         }
         return detallePokeApi;
     }

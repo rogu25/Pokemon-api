@@ -35,6 +35,7 @@
     background-color: #074331;
     color: #fff;
     font-size: 1rem;
+    cursor: pointer;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, .5);
     box-shadow: 0 2px 0 rgba(255, 255, 255, .5) inset,
         0 2px 3px rgba(0, 0, 0, .2);
@@ -54,4 +55,8 @@
 .input_buscar:focus{
     box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075)inset, 0 0 8px rgba(255,144,0,0.6);
     outline: 0 none;
+}
+.error{
+    color: #f51414;
+    margin-left: 5px;
 }

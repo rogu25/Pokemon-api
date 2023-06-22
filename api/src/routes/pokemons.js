@@ -4,7 +4,7 @@ const router = Router();
 const { Pokemon, Type } = require("../db.js");
 const { getPokemons, getNamePokemon, getIdPokemon } = require("../controllers/pokemons.js");
 const { validatorUUIDV4 } = require("../controllers/validator.js");
-const { Op, NUMBER, and } = require("sequelize");
+// const { Op, NUMBER, and } = require("sequelize");
 
 router.get("/", async (req, res, next) => {
 
@@ -55,7 +55,7 @@ router.get("/name", async (req, res, next) => {
         where: {
           nombre: nombre
         },
-        attributes: ["id", "nombre", "imagen"],
+        attributes: ["id", "nombre", "fuerza", "imagen"],
         include: {
           model: Type,
           through: {
