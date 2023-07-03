@@ -2,7 +2,7 @@ import { ALL_POKEMONS, ALL_TYPES, FILTROS_POKEMONS, GET_NAME_POKEMON} from "../a
 
 const initialState = {
     pokemons: [],
-    mensaje: {},
+    mensaje: "",
     tipos: [],
     pokemonsFiltrados: {origen:"all", orden: "all", tipo:"all", filtrados: [], total:0},
 };

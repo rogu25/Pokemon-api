@@ -18,7 +18,7 @@ function Home() {
   const tipos = useSelector((state) => state.tipos);
   const {pokemons, mensaje} = useSelector((state) => state);
   const { origen, orden, tipo, filtrados, total} = useSelector((state) => state.pokemonsFiltrados);
-  
+
   const [back, setBack] = useState(0);
   const [next, setNext] = useState(12);
   const [id, setId] = useState(1);
@@ -143,7 +143,7 @@ function Home() {
           </button>
         </div>
         {
-          filtrados && <Pokemon pokemons={filtrados} pageActual={back} nextPage={next}/>
+          filtrados.length ? <Pokemon pokemons={filtrados} pageActual={back} nextPage={next}/> : <Loading mensaje={mensaje}/> 
         }
       </div>
     </React.Fragment>
