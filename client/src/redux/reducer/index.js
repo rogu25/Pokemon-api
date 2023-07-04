@@ -40,7 +40,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_ID_POKEMON:
             return {
                 ...state,
-                detallePokemon: {...action.payload}
+                detallePokemon: action.payload
             }
 
 

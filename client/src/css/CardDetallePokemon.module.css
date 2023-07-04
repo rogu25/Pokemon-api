@@ -60,7 +60,7 @@
     font-weight: bold;
     color: #BA0403;
 }
-h3{
+h4{
     margin-top: 20px;
     text-decoration: overline;
 }
@@ -84,4 +84,14 @@ h3{
 .back{
     text-decoration: none;
     color: #fff;
+}
+
+.select_tipos{
+    margin-top: 20px;
+    border: 0px;
+    text-decoration: none;
+    outline: none;
+    font-size: 17px;
+    color: #f9fcfc;
+    background-color: #13916A;
 }

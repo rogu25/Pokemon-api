@@ -1,21 +1,32 @@
-import React, { useState } from 'react';
-
-import s from "../css/CardDetallePokemon.module.css";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
+import { get_all_types } from "../redux/action/index";
+import s from "../css/CardDetallePokemon.module.css";
 
 function CardDetallePokemon({ detalles }) {
 
-    const { nombre, imagen, vida, fuerza, defensa, velocidad, altura, peso, types } = detalles;
+    const { id, nombre, imagen, vida, fuerza, defensa, velocidad, altura, peso, types } = detalles;
+
+    const { tipos } = useSelector((state) => state);
+    const dispatch = useDispatch();
 
     const [activo, setActivo] = useState(true);
 
     const onClickEdition = () => {
-        setActivo(false)
+        if (id.length !== 36) return alert("no puedes editar la api de Pokemon");
+        setActivo(false);
     }
 
     const onClickGrabar = () => {
-        setActivo(true)
+        setActivo(true);
     }
+
+    useEffect(() => {
+        dispatch(get_all_types());
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <React.Fragment>
@@ -51,14 +62,21 @@ function CardDetallePokemon({ detalles }) {
                             <input className={activo ? s.inputD : s.inputA} type="text" defaultValue={peso} disabled={activo} />
                         </div>
                     </div>
-                    <h3>Tipos:</h3>
+                    {
+                        activo ? <h4>Tipos</h4> : <select className={s.select_tipos} id='tipo'>
+                            <option>Tipos</option>
+                            {
+                                tipos.length && tipos.map((t) => {
+                                    return <option key={t.id} value={t.name}>{t.name}</option>
+                                })
+                            }
+                        </select>
+                    }
                     <h5 className={s.tTipos}>
                         {
-                            types.length && types.map((t, index) => {
-                                return (
-                                    <input className={activo ? s.inputD : s.inputA} key={index} type="text" defaultValue={`${t.name}`} disabled={activo} />
-                                );
-                            })
+                            types.length && types.map((t) =>
+                                <label key={t.name} className={s.inputD}>{t.name} </label>
+                            )
                         }
                     </h5>
                     <div className={s.content_btn}>
