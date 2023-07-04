@@ -76,27 +76,32 @@ router.get("/name", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const { id } = req.params;
 
-    if (validatorUUIDV4(id)) {
-      const findIdDb = await Pokemon.findOne({
-        where: { id: id },
-        include: {
-          model: Type,
-          through: {
-            attributes: []
-          },
-          attributes: ["name"]
-        }
-      });
-      res.json(findIdDb);
-    } else {
-      const findIdApi = await getIdPokemon(id);
-      res.json(findIdApi)
+    const { id } = req.params;
+    
+    if(Number(id) || id.length === 36){
+      if (validatorUUIDV4(id)) {
+        const findIdDb = await Pokemon.findOne({
+          where: { id: id },
+          include: {
+            model: Type,
+            through: {
+              attributes: []
+            },
+            attributes: ["name"]
+          }
+        });
+        res.json(findIdDb);
+      } else {
+        const findIdApi = await getIdPokemon(id);
+        res.json(findIdApi)
+      }
+    }else{
+      res.json({ mensaje: `Ingrese un Id correcto...!!!` })
     }
 
   } catch (error) {
-    res.json({ mensaje: `Posible error: ${error}` })
+    res.json({ mensaje: `Id pokemon no encontrado: ${error}` })
   }
 });
 

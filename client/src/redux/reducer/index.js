@@ -1,10 +1,11 @@
-import { ALL_POKEMONS, ALL_TYPES, FILTROS_POKEMONS, GET_NAME_POKEMON} from "../action";
+import { ALL_POKEMONS, ALL_TYPES, FILTROS_POKEMONS, GET_NAME_POKEMON, GET_ID_POKEMON } from "../action";
 
 const initialState = {
     pokemons: [],
     mensaje: "",
     tipos: [],
-    pokemonsFiltrados: {origen:"all", orden: "all", tipo:"all", filtrados: [], total:0},
+    pokemonsFiltrados: { origen: "all", orden: "all", tipo: "all", filtrados: [], total: 0 },
+    detallePokemon: {} 
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -13,9 +14,9 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 pokemons: action.payload,
-                pokemonsFiltrados: {origen:"all", orden:"all", tipo:"all", filtrados: action.payload, total: action.payload.length},
+                pokemonsFiltrados: { origen: "all", orden: "all", tipo: "all", filtrados: action.payload, total: action.payload.length },
                 mensaje: action.payload.mensaje
-                
+
             }
         case ALL_TYPES:
             return {
@@ -32,10 +33,17 @@ const rootReducer = (state = initialState, action) => {
         case GET_NAME_POKEMON:
             return {
                 ...state,
-                pokemonsFiltrados: {origen:"",orden:"all",tipo:"all", filtrados: action.payload.nombre?[action.payload]:[], total: action.payload.length},
+                pokemonsFiltrados: { origen: "", orden: "all", tipo: "all", filtrados: action.payload.nombre ? [action.payload] : [], total: action.payload.length },
                 mensaje: action.payload.mensaje
-            }    
-            
+            }
+
+        case GET_ID_POKEMON:
+            return {
+                ...state,
+                detallePokemon: {...action.payload}
+            }
+
+
         default:
             return state;
     }

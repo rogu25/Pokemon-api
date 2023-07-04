@@ -5,6 +5,7 @@ export const ALL_TYPES = "ALL_TYPES";
 export const FILTROS_POKEMONS = "FILTROS_POKEMONS";
 export const TODOS_LOS_FILTROS = "TODOS_LOS_FILTROS";
 export const GET_NAME_POKEMON = "GET_NAME_POKEMON";
+export const GET_ID_POKEMON = "GET_ID_POKEMON";
 
 //------------------ request pokemons ----------------
 
@@ -33,6 +34,21 @@ export const get_name_pokemon = (name) => async (dispatch) => {
     } catch (error) {
         return dispatch({
             type: GET_NAME_POKEMON,
+            payload: {mensaje: error.message}
+        });
+    }
+}
+
+export const get_id_pokemon = (id) => async (dispatch) => {
+    try {
+        const getIdPokemon = await axios.get(`http://localhost:3001/api/pokemons/${id}`);
+        return dispatch({
+            type: GET_ID_POKEMON,
+            payload: getIdPokemon.data
+        });
+    } catch (error) {
+        return dispatch({
+            type: GET_ID_POKEMON,
             payload: {mensaje: error.message}
         });
     }

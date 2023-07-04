@@ -1,0 +1,87 @@
+.content_detalle{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.card_detalle{
+    background-color: rgba(255, 255, 255, 0.93);
+    text-align: center;
+    border: 1px solid rgb(109, 3, 3);
+    width: 400px;
+    height: 650px;
+    box-shadow: 0px 0px 5px 9px #fffd;
+    border-radius: 10px;
+}
+
+.tNombre{
+    margin-top: 20px;
+}
+
+.img{
+    width: 300px;
+    height: 300px;
+}
+
+.detalles{
+    display: flex;
+    flex-direction: column;
+}
+.descripcion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.labelT{
+    width: 40%;
+    text-align: end;
+    font-size: 20px;
+    font-weight: bold;
+    color: #13916A;
+}
+.inputD{
+    text-align: center;
+    background-color: transparent;
+    margin-right: 5px;
+    width: 30%;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #BA0403;
+}
+.inputA{
+    text-align: center;
+    background-color: transparent;
+    margin-right: 5px;
+    width: 30%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #BA0403;
+}
+h3{
+    margin-top: 20px;
+    text-decoration: overline;
+}
+
+.btn_edicion{
+    margin-top: 30px;
+    padding: .4rem 1rem;
+    width: 70px;
+    border: 1px solid #16AD80;
+    border-radius: 4px;
+    background-color: #074331;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .5);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset,
+        0 1px 3px rgba(0, 0, 0, .2);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #f90), to(#e76a00));
+    background-image: linear-gradient(#16AD80 10%, #128864 100%);
+}
+
+.back{
+    text-decoration: none;
+    color: #fff;
+}

@@ -8,7 +8,7 @@ function CardPokemon({ id, nombre, fuerza, imagen, types }) {
   return (
     <React.Fragment>
       <div className={s.card}>
-        <NavLink to={"/detalle"} className={s.tNombre}>
+        <NavLink to={`/detalle/${id}`} className={s.tNombre}>
           <h3 className={s.tNombre}>{nombre}</h3>
           <img src={imagen} alt="" className={s.img} />
         </NavLink>
