@@ -18,7 +18,7 @@ function Home() {
   const tipos = useSelector((state) => state.tipos);
   const {pokemons, mensaje} = useSelector((state) => state);
   const { origen, orden, tipo, filtrados, total} = useSelector((state) => state.pokemonsFiltrados);
-
+  
   const [back, setBack] = useState(0);
   const [next, setNext] = useState(12);
   const [id, setId] = useState(1);
@@ -54,7 +54,7 @@ function Home() {
   const onChangeSelectedOrder = (evt) => {
     setFiltros((prev) => ({ ...prev, origen, orden: evt.target.value, tipo, filtrados, total }));
   }
-  const onChangeSelectedTypes = (evt) => {
+  const onChangeSelectedTypes = (evt) =>{ 
     setFiltros((prev) => ({ ...prev, origen, orden, tipo: evt.target.value, filtrados: pokemons, total }));
   }
 

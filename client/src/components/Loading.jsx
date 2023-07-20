@@ -1,16 +1,17 @@
 import React from 'react';
 
 import s from "../css/Loading.module.css";
-import pokebola from "../img/pokebola.png";
 
-function Loading({mensaje}) {
+function Loading({ mensaje }) {
+
   return (
     <div className={s.contenedor_load}>
-      <div className={s.card_error}>
-      <h2 className={s.title_error}>Cargando......</h2>
-      <img className={s.pokebola} src={pokebola} alt="" />
+      <p className={s.title_error}>{"Cargando...."}</p>
+      <div className={s.content_btn}>
+        {
+          mensaje ? <p className={s.content_mensaje}>{mensaje}</p> : ""
+        }
       </div>
-      <h2 className={s.error}>{mensaje}</h2>
     </div>
   )
 }

@@ -10,21 +10,21 @@ import CardDetallePokemon from "../components/CardDetallePokemon";
 function DetallePokemon() {
   
   const {idPokemon} = useParams();
-  
-  const dispatch = useDispatch();
 
   const { detallePokemon } = useSelector((state) => state);
   
+  const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(get_id_pokemon(idPokemon));
-    // eslint-disable-next-line
+    // eslint-disable-next-line 
   }, []);
 
   return (
     <React.Fragment>
         <NavBar/>
         {
-           Object.entries(detallePokemon).length !== 0 && <CardDetallePokemon detalles={detallePokemon}/>
+           Object.entries(detallePokemon).length !== 0 &&<CardDetallePokemon/>
         }
     </React.Fragment>
   )

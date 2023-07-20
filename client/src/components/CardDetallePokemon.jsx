@@ -2,93 +2,171 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { get_all_types } from "../redux/action/index";
+import { get_all_types, update_pokemon } from "../redux/action/index";
 import s from "../css/CardDetallePokemon.module.css";
 
-function CardDetallePokemon({ detalles }) {
+import validation from '../hooks/validator';
 
-    const { id, nombre, imagen, vida, fuerza, defensa, velocidad, altura, peso, types } = detalles;
+function CardDetallePokemon() {
 
-    const { tipos } = useSelector((state) => state);
+    const {detallePokemon, tipos, mensaje } = useSelector((state) => state);
     const dispatch = useDispatch();
+    
+    const { id, nombre, imagen, vida, fuerza, defensa, velocidad, altura, peso, types } = detallePokemon;
 
     const [activo, setActivo] = useState(true);
+    const [pokemons, setPokemons] = useState({ nombre, imagen, vida, fuerza, defensa, velocidad, altura, peso, types: [] });
+    const [nameTypes, setNameTypes] = useState(types);
+    const [errors, setErrors] = useState({});
+
+    const onChangeInput = (e) => {
+        setPokemons((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        setErrors(validation({...pokemons, [e.target.name]: e.target.value}));
+    };
+
+    const onChangeOptionTypes = (e) => {
+        if (nameTypes.length > 2) return alert("Maximo 3 tipos");
+
+        const codeRepeat = pokemons.types.find((c) => c === Number(e.target.value));
+
+        if (!codeRepeat) {
+            setPokemons((prev) => {
+                return {
+                    ...prev,
+                    types: [...prev.types, Number(e.target.value)]
+                }
+            });
+            setNameTypes((prev) => [...prev, { "id": Number(e.target.value), "name": e.target.options[e.target.selectedIndex].text }]);
+
+            setErrors(validation({...pokemons, types: [...pokemons.types, e.target.value]}));
+        }
+    };
 
     const onClickEdition = () => {
         if (id.length !== 36) return alert("no puedes editar la api de Pokemon");
+
+        if (!pokemons.types.length) {
+            const filterTipos = tipos.filter((f) => {
+                const tipos = types.find((t) => t.name === f.name);
+                return tipos;
+            });
+
+            setPokemons((prev) => {
+                return {
+                    ...prev,
+                    types: filterTipos.map((f) => f.id)
+                }
+            });
+
+            setNameTypes(filterTipos);
+
+            setErrors(validation({...pokemons, types: filterTipos.map((f) => f.id)}));
+        }
+
         setActivo(false);
     }
 
+    const onClickDeleteTypes = (e) => {
+        setPokemons((prev) => {
+            return {
+                ...prev,
+                types: prev.types.filter((f) => f !== Number(e.target.id))
+            }
+        });
+        setNameTypes((prev) => prev.filter((f) => f.name !== e.target.name));
+        setErrors(validation({...pokemons, types: pokemons.types.filter((f) => f !== Number(e.target.id))}));
+    }
+    
     const onClickGrabar = () => {
+        if(!errors){
+            console.log("qalmenos entre")
+            dispatch(update_pokemon(id, pokemons));
+        }
         setActivo(true);
     }
 
     useEffect(() => {
         dispatch(get_all_types());
-        // eslint-disable-next-line
+        //  eslint-disable-next-line
     }, []);
 
     return (
         <React.Fragment>
             <div className={s.content_detalle}>
-                <div className={s.card_detalle}>
-                    <h2 className={s.tNombre}>{nombre}</h2>
-                    <img src={imagen} alt="" className={s.img} />
-                    <div className={s.detalles}>
-                        <div className={s.descripcion}>
-                            <label className={s.labelT}>{"Vida-->"}</label>
-                            <input className={activo ? s.inputD : s.inputA} type="text" defaultValue={vida} disabled={activo} />
+                {
+                    <div className={s.card_detalle}>
+                        <div className={s.tNombre}>
+                            <input name={"nombre"} id={s.img_input} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.nombre} placeholder='Nombre del pokemon' disabled={activo} onChange={onChangeInput} />
                         </div>
-                        <div className={s.descripcion}>
-                            <label className={s.labelT}>{"Fuerza-->"}</label>
-                            <input className={activo ? s.inputD : s.inputA} type="text" defaultValue={fuerza} disabled={activo} />
+                        <input name={"imagen"} id={s.img_input} className={activo ? s.input_custom : s.inputA} value={pokemons.imagen} type="text" placeholder='Direccion de imagen...' disabled={activo} onChange={onChangeInput} />
+                        <img src={imagen} alt="" className={s.img} />
+                        <div className={s.detalles}>
+                            <div className={s.descripcion}>
+                                <label className={s.labelT}>{"Vida-->"}</label>
+                                <input name={"vida"} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.vida} disabled={activo} onChange={onChangeInput} />
+                                <span className={errors.vida?s.input_errors_a:s.input_errors_d}>{errors.vida}</span>
+                            </div>
+                            <div className={s.descripcion}>
+                                <label className={s.labelT}>{"Fuerza-->"}</label>
+                                <input name={"fuerza"} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.fuerza} disabled={activo} onChange={onChangeInput} />
+                                <span className={errors.fuerza?s.input_errors_a:s.input_errors_d}>{errors.fuerza}</span>
+                            </div>
+                            <div className={s.descripcion}>
+                                <label className={s.labelT}>{"Defensa-->"}</label>
+                                <input name={"defensa"} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.defensa} disabled={activo} onChange={onChangeInput} />
+                                <span className={errors.defensa?s.input_errors_a:s.input_errors_d}>{errors.defensa}</span>
+                            </div>
+                            <div className={s.descripcion}>
+                                <label className={s.labelT}>{"Velocidad-->"}</label>
+                                <input name={"velocidad"} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.velocidad} disabled={activo} onChange={onChangeInput} />
+                                <span className={errors.velocidad?s.input_errors_a:s.input_errors_d}>{errors.velocidad}</span>
+                            </div>
+                            <div className={s.descripcion}>
+                                <label className={s.labelT}>{"Altura-->"}</label>
+                                <input name={"altura"} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.altura} disabled={activo} onChange={onChangeInput} />
+                                <span className={errors.altura?s.input_errors_a:s.input_errors_d}>{errors.altura}</span>
+                            </div>
+                            <div className={s.descripcion}>
+                                <label className={s.labelT}>{"Peso-->"}</label>
+                                <input name={"peso"} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.peso} disabled={activo} onChange={onChangeInput} />
+                                <span className={errors.peso?s.input_errors_a:s.input_errors_d}>{errors.peso}</span>
+                            </div>
                         </div>
-                        <div className={s.descripcion}>
-                            <label className={s.labelT}>{"Defensa-->"}</label>
-                            <input className={activo ? s.inputD : s.inputA} type="text" defaultValue={defensa} disabled={activo} />
-                        </div>
-                        <div className={s.descripcion}>
-                            <label className={s.labelT}>{"Velocidad-->"}</label>
-                            <input className={activo ? s.inputD : s.inputA} type="text" defaultValue={velocidad} disabled={activo} />
-
-                        </div>
-                        <div className={s.descripcion}>
-                            <label className={s.labelT}>{"Altura-->"}</label>
-                            <input className={activo ? s.inputD : s.inputA} type="text" defaultValue={altura} disabled={activo} />
-
-                        </div>
-                        <div className={s.descripcion}>
-                            <label className={s.labelT}>{"Peso-->"}</label>
-                            <input className={activo ? s.inputD : s.inputA} type="text" defaultValue={peso} disabled={activo} />
-                        </div>
-                    </div>
-                    {
-                        activo ? <h4>Tipos</h4> : <select className={s.select_tipos} id='tipo'>
-                            <option>Tipos</option>
-                            {
-                                tipos.length && tipos.map((t) => {
-                                    return <option key={t.id} value={t.name}>{t.name}</option>
-                                })
-                            }
-                        </select>
-                    }
-                    <h5 className={s.tTipos}>
                         {
-                            types.length && types.map((t) =>
-                                <label key={t.name} className={s.inputD}>{t.name} </label>
-                            )
+                            activo ? <h4>Tipos</h4> : <select className={s.select_tipos} onChange={onChangeOptionTypes}>
+                                <option>Tipos</option>
+                                {
+                                    tipos.length && tipos.map((t) => {
+                                        return <option key={t.id} value={t.id}>{t.name}</option>
+                                    })
+                                }
+                            </select>
                         }
-                    </h5>
-                    <div className={s.content_btn}>
-                        <button className={s.btn_edicion} onClick={onClickEdition}>Editar</button>
-                        <button className={s.btn_edicion} onClick={onClickGrabar}>Grabar</button>
-                        <button className={s.btn_edicion}>
-                            <NavLink to={"/home"} className={s.back}>
-                                Back
-                            </NavLink>
-                        </button>
+                        <h5 className={s.tTipos}>
+                            {
+                                nameTypes.length && nameTypes.map((t, index) =>
+                                    <label key={index} className={s.inputD}><button
+                                        id={t.id}
+                                        name={t.name}
+                                        className={activo ? s.btn_types_a : s.btn_types}
+                                        onClick={onClickDeleteTypes}
+                                    >X</button>{t.name} | </label>
+                                )
+                            }
+                        <span className={errors.types?s.input_errors_a:s.input_errors_d}>{errors.types}</span>
+                        </h5>
+                        <div className={s.content_btn}>
+                            <button className={s.btn_edicion} onClick={onClickEdition}>Editar</button>
+                            <button className={s.btn_edicion} disabled={activo} onClick={onClickGrabar}>Grabar</button>
+                            <button className={s.btn_edicion}>
+                                <NavLink to={"/home"} className={s.back}>
+                                    Back
+                                </NavLink>
+                            </button>
+                            <span className={mensaje?s.input_errors_a:s.input_errors_d}>{mensaje}</span>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </React.Fragment>
     )

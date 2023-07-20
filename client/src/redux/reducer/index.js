@@ -1,11 +1,11 @@
-import { ALL_POKEMONS, ALL_TYPES, FILTROS_POKEMONS, GET_NAME_POKEMON, GET_ID_POKEMON } from "../action";
+import { ALL_POKEMONS, ALL_TYPES, FILTROS_POKEMONS, GET_NAME_POKEMON, GET_ID_POKEMON, UPDATE_POKEMON } from "../action";
 
 const initialState = {
     pokemons: [],
     mensaje: "",
     tipos: [],
     pokemonsFiltrados: { origen: "all", orden: "all", tipo: "all", filtrados: [], total: 0 },
-    detallePokemon: {} 
+    detallePokemon: {},
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -13,10 +13,10 @@ const rootReducer = (state = initialState, action) => {
         case ALL_POKEMONS:
             return {
                 ...state,
-                pokemons: action.payload,
-                pokemonsFiltrados: { origen: "all", orden: "all", tipo: "all", filtrados: action.payload, total: action.payload.length },
-                mensaje: action.payload.mensaje
-
+                pokemons: action.payload.data || action.payload,
+                pokemonsFiltrados: { origen: "all", orden: "all", tipo: "all", filtrados: action.payload.data || action.payload, total: action.payload.length },
+                mensaje: action.payload.mensaje,
+                detallePokemon:{}
             }
         case ALL_TYPES:
             return {
@@ -41,6 +41,12 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 detallePokemon: action.payload
+            }
+
+        case UPDATE_POKEMON:
+            return {
+                ...state,
+                mensaje: action.payload.mensaje
             }
 
 

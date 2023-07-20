@@ -1,7 +1,7 @@
 .content_detalle{
     display: flex;
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .card_detalle{
@@ -51,6 +51,16 @@
     font-weight: bold;
     color: #BA0403;
 }
+.inputD::placeholder{
+    color: #BA0403;
+}
+
+.input_custom{
+    display: none;
+}
+#img_input{
+    width: 99%;
+}
 .inputA{
     text-align: center;
     background-color: transparent;
@@ -61,12 +71,12 @@
     color: #BA0403;
 }
 h4{
-    margin-top: 20px;
+    margin-top: 15px;
     text-decoration: overline;
 }
 
 .btn_edicion{
-    margin-top: 30px;
+    margin-top: 12px;
     padding: .4rem 1rem;
     width: 70px;
     border: 1px solid #16AD80;
@@ -87,11 +97,34 @@ h4{
 }
 
 .select_tipos{
-    margin-top: 20px;
+    margin-top: 15px;
     border: 0px;
     text-decoration: none;
     outline: none;
     font-size: 17px;
     color: #f9fcfc;
     background-color: #13916A;
+}
+
+.btn_types{
+    background-color: #BA0403;
+    font-size: 15px;
+    border-radius: 50%;
+    padding: 1px 5px 1px 5px;
+    font-weight: bold;
+}
+
+.btn_types_a{
+    display: none;
+}
+
+.input_errors_d{
+    display: none;
+}
+.input_errors_a{
+    position: absolute;
+    padding: 2px;
+    right: 80px;
+    color: #fff;
+    background-color: rgba(186, 3, 3, 0.8);
 }

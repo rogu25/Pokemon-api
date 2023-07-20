@@ -22,7 +22,7 @@ router.get("/", async (req, res, next) => {
         nombre: r.data.name,
         fuerza: r.data.stats[0].base_stat,
         imagen: r.data.sprites.other.home.front_default,
-        types: r.data.types.map((t) => { return { name: t.type.name } })
+        types: r.data.types.map((t) => { return {name: t.type.name} })
       };
     });
     const getPokemonDB = await Pokemon.findAll({
@@ -40,7 +40,21 @@ router.get("/", async (req, res, next) => {
     res.json(allPokemonsApiandDb);
 
   } catch (error) {
-    next(error);
+    const getPokemonDB = await Pokemon.findAll({
+      attributes: ["id", "nombre", "fuerza", "imagen"],
+      include: {
+        model: Type,
+        through: {
+          attributes: []
+        },
+        attributes: ["name"]
+      }
+    });
+    if(getPokemonDB.length){
+      res.json({mensaje: `${error.hostname} ${error.code}`, data: getPokemonDB});
+    }else{
+      res.json({mensaje: `${error.hostname} ${error.code}  ó base de datos vacia`});
+    }
   }
 
 });
@@ -122,8 +136,11 @@ router.put("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     if(!validatorUUIDV4(id)) return res.json({ mensaje: `No es un id Valido` })
-    const { nombre, vida, fuerza, defensa, velocidad, altura, peso, imagen, tipos } = req.body;
-    const updatePokemon = await Pokemon.update({
+    const { nombre, vida, fuerza, defensa, velocidad, altura, peso, imagen, types } = req.body;
+    
+    if(!types.length) return res.json({mensaje:"Tipos de pokemons Invalidos"})
+    
+    await Pokemon.update({
       nombre, vida, fuerza, defensa, velocidad, altura, peso, imagen
     }, {
       where : {id}
@@ -132,11 +149,12 @@ router.put("/:id", async (req, res, next) => {
     const findPokemon = await Pokemon.findOne({
       where: {id}
     })
-    await findPokemon.setTypes(tipos);
+    await findPokemon.setTypes(types);
+    
     return res.json({ mensaje: "Pokemon Actualizado correctamente...!!!" })
 
   } catch (error) {
-    res.json({ mensaje: `error al Actualizar el pokemon ${error}` })
+    return res.json({ mensaje: `error al Actualizar el pokemon ${error}` })
   }
 });
 

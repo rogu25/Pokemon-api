@@ -5,10 +5,13 @@ const router  = Router();
 
 router.get('/', async (req, res, next) => {
     try {
-        const typesPokemonsApi = await getTypesPokemons();
-        const allTypes = typesPokemonsApi.map((t) => {return {name: t.name}});
         const allTypesDb = await Type.findAll();
-        !allTypesDb.length && await Type.bulkCreate(allTypes);
+        if(!allTypesDb.length){
+            const typesPokemonsApi = await getTypesPokemons();
+            const allTypes = typesPokemonsApi.map((t) => {return {name: t.name}});
+            await Type.bulkCreate(allTypes);
+            console.log("lo que contien mi TIPOS: ")
+        }
         res.json(allTypesDb)
     } catch (error) {
         next(error)

@@ -3,7 +3,6 @@ import React from 'react';
 import CardPokemon from "./CardPokemon";
 
 import s from "../css/CardPokemon.module.css";
-// import Loading from './Loading';
 
 function Pokemon({ pokemons, pageActual, nextPage }) {
 

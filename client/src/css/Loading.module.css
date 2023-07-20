@@ -1,26 +1,33 @@
 .contenedor_load{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 450px;
+    background-image: url("../img/pokebola.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 500px;
+    height: 600px;
 }
-.card_error{
-    position: relative;
-}
-.pokebola{
-    width: 350px;
-    min-height: 450px;
-}
+
 .title_error{
     color:#f0f8ff;
-    position: absolute;
-    right: 25%;
-    top: 37%;
+    font-size: 1.5rem;
+    margin-top: 220px;
+    text-align: center;
 }
-.error{
-    position: absolute;
-    background-color: #f0ffff;
-    color:#050505;
-    left: calc(41% / 450px);
-    top: 58%; 
+
+.content_btn{
+    display: flex;
+    justify-content: center;
 }
+
+.content_mensaje{
+    width: 65%;
+    margin-top: 99px;
+    display: flex;
+    font-size: 1.3rem;
+    justify-content: center;
+    text-align: center;
+    word-break:break-all;
+    padding: 10px;
+}
+
+
