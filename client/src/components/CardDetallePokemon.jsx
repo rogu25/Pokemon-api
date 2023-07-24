@@ -9,9 +9,9 @@ import validation from '../hooks/validator';
 
 function CardDetallePokemon() {
 
-    const {detallePokemon, tipos, mensaje } = useSelector((state) => state);
+    const { detallePokemon, tipos, mensaje } = useSelector((state) => state);
     const dispatch = useDispatch();
-    
+
     const { id, nombre, imagen, vida, fuerza, defensa, velocidad, altura, peso, types } = detallePokemon;
 
     const [activo, setActivo] = useState(true);
@@ -21,12 +21,10 @@ function CardDetallePokemon() {
 
     const onChangeInput = (e) => {
         setPokemons((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-        setErrors(validation({...pokemons, [e.target.name]: e.target.value}));
+        setErrors(validation({ ...pokemons, [e.target.name]: e.target.value }));
     };
 
     const onChangeOptionTypes = (e) => {
-        if (nameTypes.length > 2) return alert("Maximo 3 tipos");
-
         const codeRepeat = pokemons.types.find((c) => c === Number(e.target.value));
 
         if (!codeRepeat) {
@@ -38,7 +36,7 @@ function CardDetallePokemon() {
             });
             setNameTypes((prev) => [...prev, { "id": Number(e.target.value), "name": e.target.options[e.target.selectedIndex].text }]);
 
-            setErrors(validation({...pokemons, types: [...pokemons.types, e.target.value]}));
+            setErrors(validation({ ...pokemons, types: [...pokemons.types, e.target.value] }));
         }
     };
 
@@ -60,7 +58,7 @@ function CardDetallePokemon() {
 
             setNameTypes(filterTipos);
 
-            setErrors(validation({...pokemons, types: filterTipos.map((f) => f.id)}));
+            setErrors(validation({ ...pokemons, types: filterTipos.map((f) => f.id) }));
         }
 
         setActivo(false);
@@ -74,15 +72,14 @@ function CardDetallePokemon() {
             }
         });
         setNameTypes((prev) => prev.filter((f) => f.name !== e.target.name));
-        setErrors(validation({...pokemons, types: pokemons.types.filter((f) => f !== Number(e.target.id))}));
+        setErrors(validation({ ...pokemons, types: pokemons.types.filter((f) => f !== Number(e.target.id)) }));
     }
-    
+
     const onClickGrabar = () => {
-        if(!errors){
-            console.log("qalmenos entre")
+        if (Object.entries(errors).length === 0) {
             dispatch(update_pokemon(id, pokemons));
+            setActivo(true);
         }
-        setActivo(true);
     }
 
     useEffect(() => {
@@ -104,32 +101,32 @@ function CardDetallePokemon() {
                             <div className={s.descripcion}>
                                 <label className={s.labelT}>{"Vida-->"}</label>
                                 <input name={"vida"} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.vida} disabled={activo} onChange={onChangeInput} />
-                                <span className={errors.vida?s.input_errors_a:s.input_errors_d}>{errors.vida}</span>
+                                <span className={errors.vida ? s.input_errors_a : s.input_errors_d}>{errors.vida}</span>
                             </div>
                             <div className={s.descripcion}>
                                 <label className={s.labelT}>{"Fuerza-->"}</label>
                                 <input name={"fuerza"} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.fuerza} disabled={activo} onChange={onChangeInput} />
-                                <span className={errors.fuerza?s.input_errors_a:s.input_errors_d}>{errors.fuerza}</span>
+                                <span className={errors.fuerza ? s.input_errors_a : s.input_errors_d}>{errors.fuerza}</span>
                             </div>
                             <div className={s.descripcion}>
                                 <label className={s.labelT}>{"Defensa-->"}</label>
                                 <input name={"defensa"} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.defensa} disabled={activo} onChange={onChangeInput} />
-                                <span className={errors.defensa?s.input_errors_a:s.input_errors_d}>{errors.defensa}</span>
+                                <span className={errors.defensa ? s.input_errors_a : s.input_errors_d}>{errors.defensa}</span>
                             </div>
                             <div className={s.descripcion}>
                                 <label className={s.labelT}>{"Velocidad-->"}</label>
                                 <input name={"velocidad"} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.velocidad} disabled={activo} onChange={onChangeInput} />
-                                <span className={errors.velocidad?s.input_errors_a:s.input_errors_d}>{errors.velocidad}</span>
+                                <span className={errors.velocidad ? s.input_errors_a : s.input_errors_d}>{errors.velocidad}</span>
                             </div>
                             <div className={s.descripcion}>
                                 <label className={s.labelT}>{"Altura-->"}</label>
                                 <input name={"altura"} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.altura} disabled={activo} onChange={onChangeInput} />
-                                <span className={errors.altura?s.input_errors_a:s.input_errors_d}>{errors.altura}</span>
+                                <span className={errors.altura ? s.input_errors_a : s.input_errors_d}>{errors.altura}</span>
                             </div>
                             <div className={s.descripcion}>
                                 <label className={s.labelT}>{"Peso-->"}</label>
                                 <input name={"peso"} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.peso} disabled={activo} onChange={onChangeInput} />
-                                <span className={errors.peso?s.input_errors_a:s.input_errors_d}>{errors.peso}</span>
+                                <span className={errors.peso ? s.input_errors_a : s.input_errors_d}>{errors.peso}</span>
                             </div>
                         </div>
                         {
@@ -153,7 +150,7 @@ function CardDetallePokemon() {
                                     >X</button>{t.name} | </label>
                                 )
                             }
-                        <span className={errors.types?s.input_errors_a:s.input_errors_d}>{errors.types}</span>
+                            <span className={errors.types ? s.input_errors_a : s.input_errors_d}>{errors.types}</span>
                         </h5>
                         <div className={s.content_btn}>
                             <button className={s.btn_edicion} onClick={onClickEdition}>Editar</button>
@@ -163,8 +160,10 @@ function CardDetallePokemon() {
                                     Back
                                 </NavLink>
                             </button>
-                            <span className={mensaje?s.input_errors_a:s.input_errors_d}>{mensaje}</span>
                         </div>
+                        {
+                            mensaje && <span className={s.mensaje}>{mensaje}</span>
+                        }
                     </div>
                 }
             </div>

@@ -62,6 +62,8 @@ const validation = (input) => {
 
   if (!input.types.length) {
     errors.types = 'Seleccione tipo de pokemon';
+  }else if(input.types.length > 2){
+    errors.types = "Maximo 3 tipos";
   }
 
   return errors;
