@@ -1,4 +1,4 @@
-import { ALL_POKEMONS, ALL_TYPES, FILTROS_POKEMONS, GET_NAME_POKEMON, GET_ID_POKEMON, UPDATE_POKEMON } from "../action";
+import { ALL_POKEMONS, ALL_TYPES, FILTROS_POKEMONS, GET_NAME_POKEMON, GET_ID_POKEMON, UPDATE_POKEMON, CREATE_POKEMON } from "../action";
 
 const initialState = {
     pokemons: [],
@@ -16,7 +16,7 @@ const rootReducer = (state = initialState, action) => {
                 pokemons: action.payload.data || action.payload,
                 pokemonsFiltrados: { origen: "all", orden: "all", tipo: "all", filtrados: action.payload.data || action.payload, total: action.payload.length },
                 mensaje: action.payload.mensaje,
-                detallePokemon:{}
+                detallePokemon: {}
             }
         case ALL_TYPES:
             return {
@@ -47,6 +47,13 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 mensaje: action.payload.mensaje
+            }
+
+        case CREATE_POKEMON:
+            console.log("lo que contiene redux, ", action.payload)
+            return {
+                ...state,
+                mensaje: action.payload
             }
 
 

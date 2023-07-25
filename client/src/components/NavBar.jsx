@@ -45,6 +45,11 @@ function NavBar() {
         <input type="text" className={s.input_buscar} placeholder='nombre del pokemon...' onChange={onChangeInputBuscar} />
         <span className={s.error}>{error}</span>
       </div>
+      <div className={s.link_crear}>
+        <NavLink to={"/formulario"}>
+        <input type="button" value="Crear Pokemon" className={s.btn_buscar}/>
+        </NavLink>
+      </div>
     </div>
   )
 }

@@ -7,6 +7,7 @@ export const TODOS_LOS_FILTROS = "TODOS_LOS_FILTROS";
 export const GET_NAME_POKEMON = "GET_NAME_POKEMON";
 export const GET_ID_POKEMON = "GET_ID_POKEMON";
 export const UPDATE_POKEMON = "UPDATE_POKEMON";
+export const CREATE_POKEMON = "CREATE_POKEMON";
 
 //------------------ request pokemons ----------------
 
@@ -65,6 +66,21 @@ export const update_pokemon = (id, obj) => async (dispatch) => {
     } catch (error) {
         return dispatch({
             type: UPDATE_POKEMON,
+            payload: {mensaje: error.message}
+        });
+    }
+}
+
+export const create_pokemon = (obj) => async (dispatch) => {
+    try {
+        const createPokemon = await axios.post(`http://localhost:3001/api/pokemons`, obj);
+        return dispatch({
+            type: CREATE_POKEMON,
+            payload: createPokemon.data
+        });
+    } catch (error) {
+        return dispatch({
+            type: CREATE_POKEMON,
             payload: {mensaje: error.message}
         });
     }
