@@ -50,7 +50,6 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case CREATE_POKEMON:
-            console.log("lo que contiene redux, ", action.payload)
             return {
                 ...state,
                 mensaje: action.payload

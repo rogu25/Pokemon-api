@@ -15,7 +15,7 @@ function CardDetallePokemon() {
     const { id, nombre, imagen, vida, fuerza, defensa, velocidad, altura, peso, types } = detallePokemon;
 
     const [activo, setActivo] = useState(true);
-    const [pokemons, setPokemons] = useState({ nombre, imagen, vida, fuerza, defensa, velocidad, altura, peso, types: [] });
+    const [pokemons, setPokemons] = useState({ nombre, imagen, vida, fuerza, defensa, velocidad, altura, peso, tipos: [] });
     const [nameTypes, setNameTypes] = useState(types);
     const [errors, setErrors] = useState({});
 
@@ -25,25 +25,26 @@ function CardDetallePokemon() {
     };
 
     const onChangeOptionTypes = (e) => {
-        const codeRepeat = pokemons.types.find((c) => c === Number(e.target.value));
+        const codeRepeat = pokemons.tipos.find((c) => c === Number(e.target.value));
 
         if (!codeRepeat) {
             setPokemons((prev) => {
                 return {
                     ...prev,
-                    types: [...prev.types, Number(e.target.value)]
+                    tipos: [...prev.tipos, Number(e.target.value)]
                 }
             });
             setNameTypes((prev) => [...prev, { "id": Number(e.target.value), "name": e.target.options[e.target.selectedIndex].text }]);
 
-            setErrors(validation({ ...pokemons, types: [...pokemons.types, e.target.value] }));
+            setErrors(validation({ ...pokemons, tipos: [...pokemons.tipos, e.target.value] }));
+
         }
     };
 
     const onClickEdition = () => {
         if (id.length !== 36) return alert("no puedes editar la api de Pokemon");
 
-        if (!pokemons.types.length) {
+        if (!pokemons.tipos.length) {
             const filterTipos = tipos.filter((f) => {
                 const tipos = types.find((t) => t.name === f.name);
                 return tipos;
@@ -52,13 +53,13 @@ function CardDetallePokemon() {
             setPokemons((prev) => {
                 return {
                     ...prev,
-                    types: filterTipos.map((f) => f.id)
+                    tipos: filterTipos.map((f) => f.id)
                 }
             });
 
             setNameTypes(filterTipos);
 
-            setErrors(validation({ ...pokemons, types: filterTipos.map((f) => f.id) }));
+            setErrors(validation({ ...pokemons, tipos: filterTipos.map((f) => f.id) }));
         }
 
         setActivo(false);
@@ -68,11 +69,11 @@ function CardDetallePokemon() {
         setPokemons((prev) => {
             return {
                 ...prev,
-                types: prev.types.filter((f) => f !== Number(e.target.id))
+                tipos: prev.tipos.filter((f) => f !== Number(e.target.id))
             }
         });
         setNameTypes((prev) => prev.filter((f) => f.name !== e.target.name));
-        setErrors(validation({ ...pokemons, types: pokemons.types.filter((f) => f !== Number(e.target.id)) }));
+        setErrors(validation({ ...pokemons, tipos: pokemons.tipos.filter((f) => f !== Number(e.target.id)) }));
     }
 
     const onClickGrabar = () => {
@@ -130,7 +131,7 @@ function CardDetallePokemon() {
                             </div>
                         </div>
                         {
-                            activo ? <h4>Tipos</h4> : <select className={s.select_tipos} onChange={onChangeOptionTypes}>
+                            activo ? <h4>Tipos</h4> : <select className={s.select_tipos} onChange={onChangeOptionTypes} disabled={pokemons.tipos.length>2&&true}>
                                 <option>Tipos</option>
                                 {
                                     tipos.length && tipos.map((t) => {
@@ -150,7 +151,7 @@ function CardDetallePokemon() {
                                     >X</button>{t.name} | </label>
                                 )
                             }
-                            <span className={errors.types ? s.input_errors_a : s.input_errors_d}>{errors.types}</span>
+                            <span className={errors.tipos ? s.input_errors_a : s.input_errors_d}>{errors.tipos}</span>
                         </h5>
                         <div className={s.content_btn}>
                             <button className={s.btn_edicion} onClick={onClickEdition}>Editar</button>

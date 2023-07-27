@@ -136,9 +136,9 @@ router.put("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     if(!validatorUUIDV4(id)) return res.json({ mensaje: `No es un id Valido` })
-    const { nombre, vida, fuerza, defensa, velocidad, altura, peso, imagen, types } = req.body;
+    const { nombre, vida, fuerza, defensa, velocidad, altura, peso, imagen, tipos } = req.body;
     
-    if(!types.length) return res.json({mensaje:"Tipos de pokemons Invalidos"})
+    if(!tipos.length) return res.json({mensaje:"Tipos de pokemons Invalidos"})
     
     await Pokemon.update({
       nombre, vida, fuerza, defensa, velocidad, altura, peso, imagen
@@ -149,7 +149,7 @@ router.put("/:id", async (req, res, next) => {
     const findPokemon = await Pokemon.findOne({
       where: {id}
     })
-    await findPokemon.setTypes(types);
+    await findPokemon.setTypes(tipos);
     
     return res.json({ mensaje: "Pokemon Actualizado correctamente...!!!" })
 

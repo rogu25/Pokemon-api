@@ -1,6 +1,5 @@
 const validation = (input) => {
   let errors = {};
-  
   if (tiene_numeros(input.nombre) === 1) {
     errors.nombre = 'No se permite numeros';
   } 
@@ -59,11 +58,11 @@ const validation = (input) => {
   if (!/(.jpg|.jpeg|.png|.gif)$/i.exec(input.imagen)) {
     errors.imagen = 'Img is required';
   }
-
-  if (!input.types.length) {
-    errors.types = 'Seleccione tipo de pokemon';
-  }else if(input.types.length > 2){
-    errors.types = "Maximo 3 tipos";
+  
+  if (!input.tipos.length) {
+    errors.tipos = 'Seleccione tipo de pokemon';
+  }else if(input.tipos.length > 3){
+    errors.tipos = "Maximo 3 tipos";
   }
 
   return errors;

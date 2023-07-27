@@ -143,7 +143,7 @@ function Home() {
           </button>
         </div>
         {
-          filtrados.length ? <Pokemon pokemons={filtrados} pageActual={back} nextPage={next}/> : <Loading mensaje={mensaje}/> 
+          filtrados.length ? <Pokemon pokemons={filtrados} pageActual={back} nextPage={next}/> : <Loading mensaje={mensaje&&mensaje}/> 
         }
       </div>
     </React.Fragment>
