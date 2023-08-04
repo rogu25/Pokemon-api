@@ -1,4 +1,4 @@
-import { ALL_POKEMONS, ALL_TYPES, FILTROS_POKEMONS, GET_NAME_POKEMON, GET_ID_POKEMON, UPDATE_POKEMON, CREATE_POKEMON } from "../action";
+import { ALL_POKEMONS, ALL_TYPES, FILTROS_POKEMONS, GET_NAME_POKEMON, GET_ID_POKEMON, UPDATE_POKEMON, DELETE_POKEMON, CREATE_POKEMON } from "../action";
 
 const initialState = {
     pokemons: [],
@@ -43,16 +43,22 @@ const rootReducer = (state = initialState, action) => {
                 detallePokemon: action.payload
             }
 
+        case CREATE_POKEMON:
+            return {
+                ...state,
+                mensaje: action.payload.mensaje
+            }
+
         case UPDATE_POKEMON:
             return {
                 ...state,
                 mensaje: action.payload.mensaje
             }
 
-        case CREATE_POKEMON:
+        case DELETE_POKEMON:
             return {
                 ...state,
-                mensaje: action.payload
+                mensaje: action.payload.mensaje
             }
 
 

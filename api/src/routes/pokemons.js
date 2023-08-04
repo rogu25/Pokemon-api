@@ -158,4 +158,16 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const eliminarPoke = await Pokemon.destroy({
+      where: {id: id}
+    });
+    return eliminarPoke === 1 ? res.json({ mensaje: "Pokemon Eliminado correctamente...!!!" }) : res.json({ mensaje: "Se eliminó" })
+  } catch (error) {
+    return res.json({ mensaje: `error al Eliminar el pokemon ${error}` })
+  }
+});
+
 module.exports = router;

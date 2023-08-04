@@ -12,6 +12,32 @@
     height: 650px;
     box-shadow: 0px 0px 5px 9px #fffd;
     border-radius: 10px;
+    position: relative;
+}
+
+.btn_eliminar{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-weight: bolder;
+    color: #f9fcfc;
+    background-color: #BA0403;
+    font-size: 1.3rem;
+    padding: 5px;
+    width: 40px;
+}
+.content_tooltip .tooltip{
+    visibility: hidden;
+    position: absolute;
+    background-color:rgba(186, 3, 3, 0.6);
+    color: #f9fcfc;
+    border-radius: 5px;
+    padding: 5px;
+    top: 60px;
+    right: -30px;
+}
+.content_tooltip:hover .tooltip{
+    visibility: visible;
 }
 
 .tNombre{

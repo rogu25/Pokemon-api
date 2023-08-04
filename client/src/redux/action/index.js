@@ -8,6 +8,7 @@ export const GET_NAME_POKEMON = "GET_NAME_POKEMON";
 export const GET_ID_POKEMON = "GET_ID_POKEMON";
 export const UPDATE_POKEMON = "UPDATE_POKEMON";
 export const CREATE_POKEMON = "CREATE_POKEMON";
+export const DELETE_POKEMON = "DELETE_POKEMON";
 
 //------------------ request pokemons ----------------
 
@@ -81,6 +82,21 @@ export const create_pokemon = (obj) => async (dispatch) => {
     } catch (error) {
         return dispatch({
             type: CREATE_POKEMON,
+            payload: {mensaje: error.message}
+        });
+    }
+}
+
+export const delete_pokemon = (id) => async (dispatch) => {
+    try {
+        const deletePokemon = await axios.delete(`http://localhost:3001/api/pokemons/${id}`);
+        return dispatch({
+            type: DELETE_POKEMON,
+            payload: deletePokemon.data
+        });
+    } catch (error) {
+        return dispatch({
+            type: DELETE_POKEMON,
             payload: {mensaje: error.message}
         });
     }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { get_all_types, update_pokemon } from "../redux/action/index";
+import { get_all_types, update_pokemon, delete_pokemon } from "../redux/action/index";
 import s from "../css/CardDetallePokemon.module.css";
 
 import validation from '../hooks/validator';
@@ -76,6 +76,13 @@ function CardDetallePokemon() {
         setErrors(validation({ ...pokemons, tipos: pokemons.tipos.filter((f) => f !== Number(e.target.id)) }));
     }
 
+    const onClickDeletePokemon = (e) => {
+        if(window.confirm("Seguro que deseas eliminar este pokemon") === true){
+            dispatch(delete_pokemon(id));
+            window.location.replace("/home");
+        }
+    }
+
     const onClickGrabar = () => {
         if (Object.entries(errors).length === 0) {
             dispatch(update_pokemon(id, pokemons));
@@ -93,6 +100,10 @@ function CardDetallePokemon() {
             <div className={s.content_detalle}>
                 {
                     <div className={s.card_detalle}>
+                        <div className={s.content_tooltip}>
+                            <button className={s.btn_eliminar} onClick={onClickDeletePokemon}>X</button>
+                            <span className={s.tooltip}>Eliminar Pokemon</span>
+                        </div>
                         <div className={s.tNombre}>
                             <input name={"nombre"} id={s.img_input} className={activo ? s.inputD : s.inputA} type="text" value={pokemons.nombre} placeholder='Nombre del pokemon' disabled={activo} onChange={onChangeInput} />
                         </div>
@@ -131,7 +142,7 @@ function CardDetallePokemon() {
                             </div>
                         </div>
                         {
-                            activo ? <h4>Tipos</h4> : <select className={s.select_tipos} onChange={onChangeOptionTypes} disabled={pokemons.tipos.length>2&&true}>
+                            activo ? <h4>Tipos</h4> : <select className={s.select_tipos} onChange={onChangeOptionTypes} disabled={pokemons.tipos.length > 2 && true}>
                                 <option>Tipos</option>
                                 {
                                     tipos.length && tipos.map((t) => {
@@ -163,7 +174,7 @@ function CardDetallePokemon() {
                             </button>
                         </div>
                         {
-                            mensaje && <span className={s.mensaje}>{mensaje}</span>
+                            mensaje && activo && <span className={s.mensaje}>{mensaje}</span>
                         }
                     </div>
                 }

@@ -13,7 +13,7 @@ function FormPokemon() {
   const dispatch = useDispatch();
   const { tipos, mensaje } = useSelector((state) => state);
   const formControl = useRef();
-
+  console.log("lo que contiene mensaje: ", mensaje)
   const [types, setTypes] = useState([]);
   const [inputs, setInputs] = useState({
     nombre: "",
@@ -167,7 +167,7 @@ function FormPokemon() {
                 <button type='button' className={s.btn_form}>Salir</button>
               </NavLink>
             </div>
-            <span className={s.mensaje}>{mensaje && activar && mensaje.mensaje}</span>
+            <span className={s.mensaje}>{mensaje && activar && mensaje}</span>
           </div>
           <div className={s.content_img}>
             {
